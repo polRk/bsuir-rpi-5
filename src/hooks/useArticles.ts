@@ -14,7 +14,7 @@ export interface IArticle {
   content: string
 }
 
-export const useArticles = ({ pageSize } = { pageSize: 40 }) => {
+export const useArticles = ({ pageSize }: { pageSize: number }) => {
   const [articles, setArticles] = useState<IArticle[]>([])
   const { getArticles } = useCachedClient()
 
@@ -44,9 +44,6 @@ export const useArticles = ({ pageSize } = { pageSize: 40 }) => {
     getArticles({ ...parameters, page: nextPage }).then((resp) => {
       if (resp.status === 'error') {
         alert(resp.message)
-
-        if (!isDestroyed) setArticles([])
-        return
       } else if (!isDestroyed) {
         setArticles(articles.concat(resp.articles))
       }

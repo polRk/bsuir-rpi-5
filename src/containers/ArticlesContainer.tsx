@@ -7,8 +7,8 @@ interface IArticlesContainerProps {
 }
 
 export const ArticlesContainer: React.FC<IArticlesContainerProps> = () => {
-  const { language, search, sourceIds } = useContext(AppContext)
-  const { articles, fetchArticles, fetchMoreArticles } = useArticles()
+  const { language, search, sourceIds, pageSize } = useContext(AppContext)
+  const { articles, fetchArticles, fetchMoreArticles } = useArticles({ pageSize })
 
   useEffect(() => {
     if (!search && !sourceIds.length) return
@@ -16,5 +16,5 @@ export const ArticlesContainer: React.FC<IArticlesContainerProps> = () => {
     fetchArticles({ language, search, sources: sourceIds })
   }, [language, search, sourceIds])
 
-  return <ArticlesView articles={articles} />
+  return <ArticlesView articles={articles} fetchMoreArticles={fetchMoreArticles} />
 }

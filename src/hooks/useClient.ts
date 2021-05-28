@@ -50,15 +50,16 @@ export interface IClient {
   getArticles(params?: GetArticlesRequestParams): Promise<IArticlesResponse>
 }
 
-export const AppContext = createContext<{ apiKey: string, language: string, search: string, sourceIds: string[] }>({
+export const AppContext = createContext({
   apiKey: '',
+  pageSize: 20,
   search: '',
   language: navigator.language.slice(0, 2),
-  sourceIds: [],
+  sourceIds: [] as string[],
 })
 
 export const useClient = (): IClient => {
-  const { apiKey } = useContext(AppContext)
+  const { apiKey, pageSize: PAGE_SIZE } = useContext(AppContext)
 
   return {
     getSourcesQuery: function(params = {}): URLSearchParams {
@@ -74,7 +75,7 @@ export const useClient = (): IClient => {
     },
     getArticlesQuery: function(params = {}): URLSearchParams {
       const query = new URLSearchParams()
-      const { search, sources, domains, excludeDomains, from, to, language, sortBy, page, pageSize } = params
+      const { search, sources, domains, excludeDomains, from, to, language, sortBy, page, pageSize } = { page: 1, pageSize: PAGE_SIZE, ...params }
       if (search) query.append('q', search)
       if (sources) query.append('sources', sources.join(','))
       if (domains) query.append('domains', domains.join(','))

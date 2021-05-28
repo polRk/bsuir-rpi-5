@@ -16,7 +16,7 @@ function App() {
     // fbc8b382ffde4f5594a85c06379e62b6
     // dcb61b8315814676883fa679808f9059
 
-    <AppContext.Provider value={{ apiKey: 'dcb61b8315814676883fa679808f9059', search, language, sourceIds }}>
+    <AppContext.Provider value={{ apiKey: 'dcb61b8315814676883fa679808f9059', pageSize: 20, search, language, sourceIds }}>
       <div id="sidebar" className="flex flex-col gap-2 h-screen max-h-[calc(100vh-2rem)] sticky top-4">
         <SearchContainer onChange={setSearch} />
         <LanguageContainer onChange={setLanguage} />
