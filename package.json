@@ -4,7 +4,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "serve": "vite preview"
+    "serve": "vite preview",
+    "prepare": "npm rebuild esbuild"
   },
   "dependencies": {
     "@tailwindcss/forms": "^0.3.2",
